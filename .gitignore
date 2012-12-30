@@ -1,2 +1,4 @@
 test
+*.10cdisk
+*.bin
 *.hex
