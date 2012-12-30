@@ -56,7 +56,7 @@ DAT "b. Small game                   "
 DAT "c. Read text in disk            "
 DAT "d. More...                      "
 DAT "                                "
-DAT "SimpleOS v2 demo progr by azerty", 0
+DAT "TIP : Enter to exit a program   ", 0
 
 :dp_helloWorld_text        DAT "Hello world !                   Press enter to continue...", 0
 :dp_more_text              DAT "With SimpleOS, you can easly developp your own application. See the wiki on github for more informations !", 0
@@ -64,3 +64,4 @@ DAT "SimpleOS v2 demo progr by azerty", 0
 :dp_readDisk_noMedia_text  DAT "ERROR : There is no media in the floppy lector. (STATE_NO_MEDIA)", 0
 :dp_readDisk_busy_text     DAT "ERROR : The floppy drive is already reading or writing. (STATE_BUSY)", 0
 :dp_readDisk_noLector_text DAT "ERROR : There isn't any floppy drive connected to the DCPU (PRIVATE_STATE_NO_FLOPPY_LECTOR)", 0
+:dp_readDisk_warning       DAT "WARNING ! This function wasn't tested with devkit because I have a bug, so the result if you put a writed disk would be completely random !", 0

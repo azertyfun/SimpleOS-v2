@@ -90,6 +90,14 @@
 		
 :dp_readDisk
 	INT 0x2 ;Clear
+	
+	SET B, dp_readDisk_warning
+	SET C, 0x8000
+	INT 0x1 ;Write
+	INT 0x3 ;Press any key
+	
+	INT 0x2 ;Clear
+	
 	INT 0x5 ;Get state
 	IFE B, 0x0                       ;STATE_NO_MEDIA
 		SET PC, dp_readDisk_noMedia
