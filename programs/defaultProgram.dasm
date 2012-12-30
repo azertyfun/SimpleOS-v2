@@ -1,0 +1,149 @@
+; --------------------------------------------
+; Title:   defaultProgram
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+:defaultProgram
+	;Don't need a clear because the text overwrites all ^_^
+	
+	SET B, dp_menu
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	:defaultProgram_loop
+	INT 0x04 ;WaitKey
+	IFE C, 0x61
+		JSR dp_helloWorld
+	IFE C, 0x62
+		JSR dp_game
+	IFE C, 0x63
+		JSR dp_readDisk
+	IFE C, 0x64
+		JSR dp_more
+	IFN Z, 1
+		SET PC, defaultProgram_loop
+	SET PC, defaultProgram
+	
+	SET PC, POP
+
+:dp_helloWorld
+	INT 0x02 ;CLEAR
+	
+	SET B, dp_helloWorld_text
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	:dp_helloWorld_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_helloWorld_loop
+	
+	SET Z, 1
+	
+	SET PC, POP
+	
+:dp_game
+	INT 0x02 ;CLEAR
+	SET Y, [dp_game_playerAddress]
+	SET [Y], 0xF91b
+	:dp_game_loop
+		INT 0x4 ;WaitKey
+		IFE C, 0x77
+			JSR dp_game_arrowUp
+		IFE C, 0x73
+			JSR dp_game_arrowDown
+		IFE C, 0x61
+			JSR dp_game_arrowLeft
+		IFE C, 0x64
+			JSR dp_game_arrowRight
+		IFN C, 0x11
+			SET PC, dp_game_loop
+	SET Z, 1
+		
+	SET PC, POP
+	
+	:dp_game_arrowUp
+		SET [Y], 0x0920
+		SUB Y, 0x0020
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowDown
+		SET [Y], 0x0920
+		ADD Y, 0x0020
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowLeft
+		SET [Y], 0x0920
+		SUB Y, 0x0001
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowRight
+		SET [Y], 0x0920
+		ADD Y, 0x0001
+		SET [Y], 0xF91b
+		SET PC, POP
+		
+:dp_readDisk
+	INT 0x2 ;Clear
+	INT 0x5 ;Get state
+	IFE B, 0x0                       ;STATE_NO_MEDIA
+		SET PC, dp_readDisk_noMedia
+	IFE B, 0x1                       ;STATE_READY
+		SET PC, dp_readDisk_ok
+	IFE B, 0x2                       ;STATE_READY_WP
+		SET PC, dp_readDisk_ok
+	IFE B, 0x3                       ;STATE_BUSY
+		SET PC, dp_readDisk_busy
+	IFE B, 0x4
+		SET PC, dp_readDisk_noLector ;PRIVATE_STATE_NO_FLOPPY_LECTOR
+
+	SET PC, POP
+	
+	:dp_readDisk_noMedia
+		SET B, dp_readDisk_noMedia_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		INT 0x3 ;Press any key
+		SET PC, POP
+	
+	:dp_readDisk_busy
+		SET B, dp_readDisk_busy_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		INT 0x3 ;Press any key
+		SET PC, POP
+		
+	:dp_readDisk_noLector
+		SET B, dp_readDisk_noLector_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		INT 0x3 ;Press any key
+		SET PC, POP
+		
+	:dp_readDisk_ok
+		SET X, 0
+		SET Y, 0x8000
+		INT 0x6 ;Read Sector
+		SET PC, POP
+	
+:dp_more
+	INT 0x02 ;CLEAR
+	
+	SET B, dp_more_text
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	:dp_more_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_more_loop
+	
+	SET Z, 1
+	
+	SET PC, POP
+	

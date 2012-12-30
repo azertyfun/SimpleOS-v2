@@ -1,0 +1,48 @@
+; --------------------------------------------
+; Title:   monitor
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+;;;FONCTION init_monitor
+;;;DESCRIPTION Inits the monitor - should not be used because called on boot.
+;;;ARG none none
+:init_monitor
+	SET A, 0
+	SET B, 0x8000
+	HWI [monitor]
+	
+	SET A, 3
+	SET B, 0x9
+	HWI [monitor]
+	
+	SET PC, POP
+
+;;;FONCTION clear
+;;;DESCRIPTION INT 0x2 : clears the screen
+;;;ARG none none
+:clear
+	SET I, 0x8000
+	:clear_loop
+		SET [I], 0x0920
+		ADD I, 1
+		IFN I, 0x81E0
+			JSR clear_loop
+	SET PC, POP
+	
+;;;FONCTION write
+;;;DESCRIPTION INT 0x1
+;;;ARG B Address of the screen
+;;;ARG C Address to write to (ex: 0x8000)
+
+:write
+	:write_loop
+		SET [C], [B]
+		BOR [C], 0xF900
+		ADD B, 1
+		ADD C, 1
+		IFN [B], 0
+			SET PC, write
+	
+	SET PC, POP

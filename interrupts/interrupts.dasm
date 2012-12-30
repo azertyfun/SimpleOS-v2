@@ -1,0 +1,66 @@
+; --------------------------------------------
+; Title:   interrupts
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+; ===================================
+; List of interrupts:
+; -------------------
+; 
+; - Write (0x1)
+;   Set B to adress of string, C
+;     to adress to write to.
+
+; - Clear (0x2)
+;   You don't need to set anything
+
+; - Press any key (0x3)
+;   You don't need to set anything
+
+; - Wait key (blocking) (0x4)
+;   Returns key pressed in C. Blocs
+;   the program until the key is
+;   pressed.
+;
+; - Get state (0x5)
+;   Returns the state of the floppy
+;   in B and the last error in C.
+;
+; - Read sector (non blocking) (0x6)
+;   Set X to sector to read and Y
+;     to ram address to read into.
+;   Returns B to 1 if reading has
+;     started, or anything else if
+;     it failed.
+;   Reading is only possible is the
+;     state is STATE_READY or
+;     STATE_READY_WP.
+; ===================================
+
+
+:interrupts_init
+	IAS interrupts
+	SET PC, POP
+	
+	
+:interrupts
+	IFE A, 0x01      ;Write
+		JSR write
+
+	IFE A, 0x02      ;Clear
+		JSR clear
+		
+	IFE A, 0x03      ;Press any Key
+		JSR pressAnyKey
+		
+	IFE A, 0x04      ;Wait key
+		JSR waitKey
+	
+	IFE A, 0x5
+		JSR floppy_getState
+		
+	IFE A, 0x06      ;Read sector
+		JSR floppy_readSector
+	RFI 1

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<solution>
+  <name>SimpleOS v2</name>
+  <properties>
+    <property name="emuLoad.projectName">boot</property>
+    <property name="emuLoadMode">project</property>
+  </properties>
+  <projects>
+    <project path="boot\boot.10cproj" />
+    <project path="drivers\drivers.10cproj" />
+    <project path="kernel\kernel.10cproj" />
+    <project path="programs\programs.10cproj" />
+    <project path="DATA\DATA.10cproj" />
+    <project path="interrupts\interrupts.10cproj" />
+  </projects>
+</solution>

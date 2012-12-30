@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="1.7.5" type="code">
+  <name>boot</name>
+  <properties>
+    <property name="code.generateBinaryOutput">False</property>
+    <property name="code.binaryOutputFilename">boot.bin</property>
+    <property name="code.generateHexOutput">True</property>
+    <property name="code.hexOutputFilename">../compile/boot.hex</property>
+    <property name="code.setFirstFile">True</property>
+    <property name="code.firstFile">SimpleOS.dasm</property>
+  </properties>
+  <references>
+    <project>DATA</project>
+    <project>drivers</project>
+    <project>kernel</project>
+    <project>programs</project>
+    <project>interrupts</project>
+  </references>
+  <files>
+    <file path="SimpleOS.dasm" />
+  </files>
+</project>

@@ -1,0 +1,54 @@
+; --------------------------------------------
+; Title:   floppy
+; Author:  azertyun
+; Date:    29-12-12
+; Version: -
+; --------------------------------------------
+
+;;;FONCTION floppy_getState
+;;;DESCRIPTION returns the state in B and the last error in C (see doc on DCPU.com for state and error codes)
+
+:floppy_getState
+	IFE [floppy], 0
+		SET PC, floppy_noLector
+	SET A, 0
+	HWI [floppy]
+	
+	SET PC, POP
+	
+	:floppy_noLector
+		SET B, 0x0004
+		SET C, 0x0000
+		SET PC, POP
+	
+
+;;;FONCTION floppy_readSector
+;;;DESCRIPTION Reads sector. Sets B to 1 if reading has started, or anything else if failed. Reading is only possible if the state is STATE_READY or STATE_READY_WP.
+;;;ARG X Sector to read
+;;;ARG Y DCPU ram address to write to
+
+:floppy_readSector
+	SET A, 2
+	HWI [floppy]
+	
+	SET PC, POP
+
+;;;FONCTION floppy_read
+;;;DESCRIPTION Reads a number of sectors. Sets B to 1 if reading has started, or B to non-zero if failed. Reading is only possible if the state is STATE_READY or SATE_READY_WP.
+;;;ARG Y DCPU ram address to write to
+;;;ARG Z number of sectors to read
+:floppy_read
+	SET A, 2
+	SET X, 0
+	:floppy_read_loop
+		HWI [floppy]
+		ADD X, 1
+		ADD Y, 512
+		IFN X, Z
+			SET PC, floppy_read_loop
+	
+		
+		
+	SET PC, POP
+	
+	

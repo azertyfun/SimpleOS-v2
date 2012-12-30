@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="1.7.5" type="code">
+  <name>programs</name>
+  <properties>
+    <property name="code.generateBinaryOutput">False</property>
+    <property name="code.binaryOutputFilename">programs.bin</property>
+    <property name="code.generateHexOutput">True</property>
+    <property name="code.hexOutputFilename">../compile/programs.hex</property>
+    <property name="code.setFirstFile">false</property>
+  </properties>
+  <references>
+    <project>DATA</project>
+    <project>drivers</project>
+    <project>kernel</project>
+  </references>
+  <files>
+    <file path="defaultProgram.dasm" />
+  </files>
+</project>

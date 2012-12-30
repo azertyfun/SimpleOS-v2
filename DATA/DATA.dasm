@@ -1,0 +1,66 @@
+; --------------------------------------------
+; Title:   DATA
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+;Devices
+:monitor       DAT 0
+:keyboard      DAT 0
+:clock         DAT 0
+:sped          DAT 0
+:floppy        DAT 0
+
+;kernel
+
+:startProgrMemory  DAT 0xA000
+:endProgrMemory    DAT 0xE000
+:freeMemory        DAT 0x4000
+:cursor_memory     DAT 0xA000
+:nbrAllocs         DAT 0
+
+;kernel_strings
+:error_notEnoughFreeSpace      DAT "Error. The actual program tryed to allocate too much memory. The system will crash. Press any key to continue...", 0
+:error_tooMuchAllocs           DAT "Error. The actuel program tryed to allocate too much variables. The system will crash. press any key to continue...", 0
+
+
+
+; ==============================
+; Default program(s) strings
+; ==============================
+
+:accueil
+DAT "  ###  ###   ###   #   #   ###  "
+DAT " #    #   # #      #   #      # "
+DAT "  ##  #   #  ##    #   #    ##  "
+DAT "    # #   #    #    # #    #    "
+DAT " ###   ###  ###      #    ####  "
+DAT "                                "
+DAT " An OS Better, faster,          "
+DAT " stronger !                     "
+DAT "                                "
+DAT " - Press any key to continue... "
+DAT "                                "
+DAT " An OS by azertyfun, (c) 2012   ", 0
+
+:dp_menu
+DAT "###  ### #   #  ##  #           "
+DAT "#  # #   ## ## #  # #           "
+DAT "#  # ### # # # #  # #           "
+DAT "#  # #   #   # #  #             "
+DAT "###  ### #   #  ##  #           "
+DAT "                                "
+DAT "a. Hello world !                "
+DAT "b. Small game                   "
+DAT "c. Read text in disk            "
+DAT "d. More...                      "
+DAT "                                "
+DAT "SimpleOS v2 demo progr by azerty", 0
+
+:dp_helloWorld_text        DAT "Hello world !                   Press enter to continue...", 0
+:dp_more_text              DAT "With SimpleOS, you can easly developp your own application. See the wiki on github for more informations !", 0
+:dp_game_playerAddress     DAT 0x8000
+:dp_readDisk_noMedia_text  DAT "ERROR : There is no media in the floppy lector. (STATE_NO_MEDIA)", 0
+:dp_readDisk_busy_text     DAT "ERROR : The floppy drive is already reading or writing. (STATE_BUSY)", 0
+:dp_readDisk_noLector_text DAT "ERROR : There isn't any floppy drive connected to the DCPU (PRIVATE_STATE_NO_FLOPPY_LECTOR)", 0

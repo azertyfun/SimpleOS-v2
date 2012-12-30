@@ -1,0 +1,29 @@
+; --------------------------------------------
+; Title:   keyboard
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+:pressAnyKey
+	SET A, 0
+	HWI [keyboard]
+	:pressAnyKey_loop
+		SET A, 1
+		HWI [keyboard]
+		IFE C, 0
+			SET PC, pressAnyKey_loop
+	
+	SET PC, POP
+	
+; Returns in C the key entered
+:waitKey
+	SET A, 0
+	HWI [keyboard] ;Clear keyboard buffer
+
+	SET A, 1
+	:waitKey_loop
+	HWI [keyboard]
+	IFE C, 0
+		SET PC, waitKey_loop
+	SET PC, POP

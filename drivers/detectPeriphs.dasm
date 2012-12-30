@@ -1,0 +1,31 @@
+; --------------------------------------------
+; Title:   detectPeriphs
+; Author:  azertyfun
+; Date:    2/12/2012
+; Version: -
+; --------------------------------------------
+
+;;;FONCTION detecPeriphs
+;;;DESCRIPTION Detects all the peripherics connected, can be used to detect if there is new peripherics connected. /!\ The ID of removed peripherics will not change, be carefull !
+;;;ARG none none
+
+:detectPeriphs
+	HWN I
+	SET J, -1
+	:detectPeriphs_loop
+		HWQ J
+		IFE A, 0xf615
+			SET [monitor], J
+		IFE A, 0x7406
+			SET [keyboard], J
+		IFE A, 0xb402
+			SET [clock], J
+		IFE A, 0xbf3c
+			SET [sped], J
+		IFE A, 0x24c5
+			SET [floppy], J
+		ADD J, 1
+		IFN J, I
+			SET PC, detectPeriphs_loop
+		
+	SET PC, POP

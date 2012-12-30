@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="1.7.5" type="code">
+  <name>DATA</name>
+  <properties>
+    <property name="code.generateBinaryOutput">False</property>
+    <property name="code.binaryOutputFilename">DATA.bin</property>
+    <property name="code.generateHexOutput">True</property>
+    <property name="code.hexOutputFilename">../compile/DATA.hex</property>
+    <property name="code.setFirstFile">false</property>
+  </properties>
+  <references />
+  <files>
+    <file path="DATA.dasm" />
+  </files>
+</project>
