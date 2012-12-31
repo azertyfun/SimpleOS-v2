@@ -63,4 +63,7 @@
 		
 	IFE A, 0x06      ;Read sector
 		JSR floppy_readSector
+		
+	IFE A, 0xF0F0
+		JSR scheduler
 	RFI 1

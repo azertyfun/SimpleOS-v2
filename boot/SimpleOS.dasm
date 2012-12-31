@@ -13,6 +13,7 @@
 	JSR detectPeriphs
 	JSR init_monitor
 	JSR interrupts_init
+	JSR init_clock
 	
 	;Accueil screen
 	SET B, accueil

@@ -16,5 +16,6 @@
     <file path="monitor.dasm" />
     <file path="keyboard.dasm" />
     <file path="floppy.dasm" />
+    <file path="GenericClock.dasm" />
   </files>
 </project>

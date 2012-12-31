@@ -14,11 +14,11 @@
 
 ;kernel
 
-:startProgrMemory  DAT 0xA000
-:endProgrMemory    DAT 0xE000
-:freeMemory        DAT 0x4000
-:cursor_memory     DAT 0xA000
-:nbrAllocs         DAT 0
+:started_programs        DAT 0, 0, 0, 0, 0 ;Array of pointers to the programs' PC
+:started_programs_SP     DAT 0, 0, 0, 0, 0 ;Array of pointers to the programs' SP
+:numberOfPrograms        DAT 0             ;Number of started programs
+:currentProgram          DAT 0
+:current_program_temp
 
 ;kernel_strings
 :error_notEnoughFreeSpace      DAT "Error. The actual program tryed to allocate too much memory. The system will crash. Press any key to continue...", 0

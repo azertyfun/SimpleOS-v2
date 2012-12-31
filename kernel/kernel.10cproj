@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project version="1.7.5" type="code">
+<project version="1.7.6" type="code">
   <name>kernel</name>
   <properties>
     <property name="code.generateBinaryOutput">False</property>
@@ -12,5 +12,7 @@
     <project>DATA</project>
     <project>drivers</project>
   </references>
-  <files />
+  <files>
+    <file path="scheduler.dasm" />
+  </files>
 </project>
