@@ -17,5 +17,6 @@
     <file path="keyboard.dasm" />
     <file path="floppy.dasm" />
     <file path="GenericClock.dasm" />
+    <file path="sped.dasm" />
   </files>
 </project>

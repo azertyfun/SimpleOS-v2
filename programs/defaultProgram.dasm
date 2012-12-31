@@ -15,30 +15,37 @@
 	:defaultProgram_loop
 	INT 0x04 ;WaitKey
 	IFE C, 0x61
-		JSR dp_helloWorld
+		JSR dp_spedDemo
 	IFE C, 0x62
 		JSR dp_game
 	IFE C, 0x63
 		JSR dp_readDisk
 	IFE C, 0x64
 		JSR dp_more
+	IFE C, 0x65
+		JSR dp_surprise
 	IFN Z, 1
 		SET PC, defaultProgram_loop
 	SET PC, defaultProgram
 	
 	SET PC, POP
 
-:dp_helloWorld
+:dp_spedDemo
 	INT 0x02 ;CLEAR
 	
-	SET B, dp_helloWorld_text
+	SET B, dp_spedDemo_text
 	SET C, 0x8000
 	INT 0x01 ;WRITE
 	
-	:dp_helloWorld_loop
+	SET [0x9000], 0x0000
+	SET [0x9001], 0xFF00
+	SET [0x9002], 0x0101
+	SET [0x9003], 0xFF01
+	
+	:dp_spedDemo_loop
 	INT 0x04 ;Waitkey
 	IFN C, 0x11
-		SET PC, dp_helloWorld_loop
+		SET PC, dp_spedDemo_loop
 	
 	SET Z, 1
 	
@@ -109,34 +116,65 @@
 		SET PC, dp_readDisk_busy
 	IFE B, 0x4
 		SET PC, dp_readDisk_noLector ;PRIVATE_STATE_NO_FLOPPY_LECTOR
-
+	
+	:dp_readDisk_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_readDisk_loop
+	
+	SET Z, 1
 	SET PC, POP
 	
 	:dp_readDisk_noMedia
 		SET B, dp_readDisk_noMedia_text
 		SET C, 0x8000
 		INT 0x1 ;Write
-		INT 0x3 ;Press any key
+		
+		:dp_readDisk_noMedia_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_noMedia_loop
+		
+		SET Z, 1
 		SET PC, POP
 	
 	:dp_readDisk_busy
 		SET B, dp_readDisk_busy_text
 		SET C, 0x8000
 		INT 0x1 ;Write
-		INT 0x3 ;Press any key
+		
+		:dp_readDisk_busy_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_busy_loop
+		
+		SET Z, 1
 		SET PC, POP
 		
 	:dp_readDisk_noLector
 		SET B, dp_readDisk_noLector_text
 		SET C, 0x8000
 		INT 0x1 ;Write
-		INT 0x3 ;Press any key
+		
+		
+		:dp_readDisk_noLector_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_noLector_loop
+		
+		SET Z, 1
 		SET PC, POP
 		
 	:dp_readDisk_ok
 		SET X, 0
 		SET Y, 0x8000
-		INT 0x6 ;Read Sector
+		
+		:dp_readDisk_ok_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_ok_loop
+			
+		SET Z, 1
 		SET PC, POP
 	
 :dp_more
@@ -154,4 +192,16 @@
 	SET Z, 1
 	
 	SET PC, POP
+	
+:dp_surprise
+	INT 0x02 ;CLEAR
+	SET B, dp_surprise_text
+	SET C, 0x8000
+	INT 0x01 ;Write
+	
+	IAQ 1
+	
+	:dp_surprise_loop
+		INT 0x04
+		SET PC, dp_surprise_loop
 	

@@ -19,20 +19,20 @@
 	
 	SET PC, POP
 
-;;;FONCTION clear
-;;;DESCRIPTION INT 0x2 : clears the screen
+;;;FONCTION clear (0x2)
+;;;DESCRIPTION Clears the screen
 ;;;ARG none none
 :clear
 	SET I, 0x8000
 	:clear_loop
 		SET [I], 0x0920
 		ADD I, 1
-		IFN I, 0x81E0
-			JSR clear_loop
-	SET PC, POP
+		IFE I, 0x8180
+			RFI 1
+		SET PC, clear_loop
 	
-;;;FONCTION write
-;;;DESCRIPTION INT 0x1
+;;;FONCTION write (0x1)
+;;;DESCRIPTION Writes the text in arguments
 ;;;ARG B Address of the screen
 ;;;ARG C Address to write to (ex: 0x8000)
 
@@ -45,4 +45,4 @@
 		IFN [B], 0
 			SET PC, write
 	
-	SET PC, POP
+	RFI 1

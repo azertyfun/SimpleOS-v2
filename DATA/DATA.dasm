@@ -51,17 +51,18 @@ DAT "#  # ### # # # #  # #           "
 DAT "#  # #   #   # #  #             "
 DAT "###  ### #   #  ##  #           "
 DAT "                                "
-DAT "a. Hello world !                "
+DAT "a. SPED-3 demo                  "
 DAT "b. Small game                   "
 DAT "c. Read text in disk            "
 DAT "d. More...                      "
-DAT "                                "
+DAT "e. SURPRISE                     "
 DAT "TIP : Enter to exit a program   ", 0
 
-:dp_helloWorld_text        DAT "Hello world !                   Press enter to continue...", 0
-:dp_more_text              DAT "With SimpleOS, you can easly developp your own application. See the wiki on github for more informations !", 0
+:dp_spedDemo_text          DAT "Welcome to the SPED-3 demo ! Not working yet.", 0
+:dp_more_text              DAT "With SimpleOS, you can easly developp your own application. See the wiki on github for more informations !                      SimpleOS v2 was created by azertyfun <--- This pseudo means I speak french.", 0
 :dp_game_playerAddress     DAT 0x8000
 :dp_readDisk_noMedia_text  DAT "ERROR : There is no media in the floppy lector. (STATE_NO_MEDIA)", 0
 :dp_readDisk_busy_text     DAT "ERROR : The floppy drive is already reading or writing. (STATE_BUSY)", 0
 :dp_readDisk_noLector_text DAT "ERROR : There isn't any floppy drive connected to the DCPU (PRIVATE_STATE_NO_FLOPPY_LECTOR)", 0
 :dp_readDisk_warning       DAT "WARNING ! This function wasn't tested with devkit because I have a bug, so the result if you put a writed disk would be completely random !", 0
+:dp_surprise_text          DAT "Wait a moment, it will come !", 0

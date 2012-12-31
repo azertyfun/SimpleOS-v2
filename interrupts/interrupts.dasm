@@ -47,23 +47,25 @@
 	
 :interrupts
 	IFE A, 0x01      ;Write
-		JSR write
+		SET PC, write
 
 	IFE A, 0x02      ;Clear
-		JSR clear
+		SET PC, clear
 		
 	IFE A, 0x03      ;Press any Key
-		JSR pressAnyKey
+		SET PC, pressAnyKey
 		
 	IFE A, 0x04      ;Wait key
-		JSR waitKey
+		SET PC, waitKey
 	
 	IFE A, 0x5
-		JSR floppy_getState
+		SET PC, floppy_getState
 		
 	IFE A, 0x06      ;Read sector
-		JSR floppy_readSector
-		
-	IFE A, 0xF0F0
-		JSR scheduler
+		SET PC, floppy_readSector
+	
+	;Desactivating temporarily
+	;IFE A, 0xF0F0
+	;	SET PC, scheduler
+	
 	RFI 1

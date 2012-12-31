@@ -13,7 +13,7 @@
 
 :scheduler
 	IFL [started_programs], 2
-		SET PC, POP
+		RFI 0
 	
 	SET A, POP ;Backuping precedent PC adress in A
 	SET [current_program_temp], POP ;Address of PC just when the clock triggered its interrupt
@@ -44,7 +44,7 @@
 	SET [current_program_temp], [A]
 	SET PUSH, [current_program_temp]
 	SET PUSH, A
-	SET PC, POP
+	RFI 0
 	
 	
 ;;;FONCTION addProgram

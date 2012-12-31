@@ -14,12 +14,12 @@
 	SET A, 0
 	HWI [floppy]
 	
-	SET PC, POP
+	RFI 0
 	
 	:floppy_noLector
 		SET B, 0x0004
 		SET C, 0x0000
-		SET PC, POP
+		RFI 0
 	
 
 ;;;FONCTION floppy_readSector
@@ -31,7 +31,7 @@
 	SET A, 2
 	HWI [floppy]
 	
-	SET PC, POP
+	RFI 0
 
 ;;;FONCTION floppy_read
 ;;;DESCRIPTION Reads a number of sectors. Sets B to 1 if reading has started, or B to non-zero if failed. Reading is only possible if the state is STATE_READY or SATE_READY_WP.
@@ -49,6 +49,6 @@
 	
 		
 		
-	SET PC, POP
+	RFI 0
 	
 	

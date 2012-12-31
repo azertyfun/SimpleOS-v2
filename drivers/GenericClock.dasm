@@ -15,7 +15,10 @@
 	HWI [clock]
 
 	SET A, 0
-	SET B, 30
+	;SET B, 30
+	;Desactivating temporarily
+	SET B, 0
 	HWI [clock]
 	
 	SET PC, POP
+	

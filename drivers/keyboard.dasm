@@ -14,7 +14,7 @@
 		IFE C, 0
 			SET PC, pressAnyKey_loop
 	
-	SET PC, POP
+	RFI 0
 	
 ; Returns in C the key entered
 :waitKey
@@ -26,4 +26,4 @@
 	HWI [keyboard]
 	IFE C, 0
 		SET PC, waitKey_loop
-	SET PC, POP
+	RFI 0

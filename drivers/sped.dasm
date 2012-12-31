@@ -1,0 +1,18 @@
+; --------------------------------------------
+; Title:   sped
+; Author:  azertyfun
+; Date:    31-12-12
+; Version: -
+; --------------------------------------------
+
+;;;FONCTION init_sped
+;;;DESCRIPTION inits the SPED-3 (maps memory at 0x9000 for a total of 0x1000 verticles)
+
+
+:init_sped
+	SET A, 1
+	SET X, 0x9000
+	SET Y, 0x1000
+	HWI [sped]
+	
+	SET PC, POP
