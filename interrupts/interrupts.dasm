@@ -37,6 +37,15 @@
 ;   Reading is only possible is the
 ;     state is STATE_READY or
 ;     STATE_READY_WP.
+; - Print model (0x7)
+;   Set X to the adress of the beggi-
+;     ning of the model and Y to the
+;     end of the model. Set both to
+;     0 if you want to clear the
+;     model displayed.
+; - Rotate model (0x8)
+;   Set X to the number of degrees to
+;     rotate.
 ; ===================================
 
 
@@ -63,6 +72,12 @@
 		
 	IFE A, 0x06      ;Read sector
 		SET PC, floppy_readSector
+		
+	IFE A, 0x07
+		SET PC, sped_printModel
+	
+	IFE A, 0x8
+		SET PC, sped_rotateModel
 	
 	;Desactivating temporarily
 	;IFE A, 0xF0F0

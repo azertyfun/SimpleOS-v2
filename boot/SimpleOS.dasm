@@ -14,7 +14,6 @@
 	JSR init_monitor
 	JSR interrupts_init
 	JSR init_clock
-	JSR init_sped
 	
 	;Accueil screen
 	SET B, accueil

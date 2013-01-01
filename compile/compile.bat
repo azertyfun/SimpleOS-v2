@@ -1,5 +1,5 @@
 @echo off
-echo ;SimpleOS v2, an OS created by azertyfun, (c) 2012. > compiled.hex
+echo ;SimpleOS v2, an OS created by azertyfun, (c) 2012-2013. See the github ! https://github.com/azertyfun/SimpleOS-v2 > compiled.hex
 echo. >>compiled.hex
 echo ;Boot>>compiled.hex
 type "boot.hex">>compiled.hex

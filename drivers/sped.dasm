@@ -5,14 +5,25 @@
 ; Version: -
 ; --------------------------------------------
 
-;;;FONCTION init_sped
-;;;DESCRIPTION inits the SPED-3 (maps memory at 0x9000 for a total of 0x1000 verticles)
+;;;FONCTION sped_printModel
+;;;DESCRIPTION prints the model passed in arguments
+;;;ARG X beggining of the model
+;;;ARG Y ending of the model
 
 
-:init_sped
+:sped_printModel
 	SET A, 1
-	SET X, 0x9000
-	SET Y, 0x1000
+	SUB Y, X
+	DIV Y, 2
 	HWI [sped]
 	
-	SET PC, POP
+	RFI 0
+	
+;;;FONCTION sped_rotateModel
+;;;DESCRIPTION turns the model previously printed with sped_printModel.
+;;;ARG X Number of degrees to rotate
+	
+:sped_rotateModel
+	SET A, 2
+	HWI [sped]
+	RFI 0
