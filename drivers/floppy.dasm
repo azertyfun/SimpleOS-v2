@@ -1,10 +1,3 @@
-; --------------------------------------------
-; Title:   floppy
-; Author:  azertyun
-; Date:    29-12-12
-; Version: -
-; --------------------------------------------
-
 ;;;FONCTION floppy_getState
 ;;;DESCRIPTION returns the state in B and the last error in C (see doc on DCPU.com for state and error codes)
 

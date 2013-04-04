@@ -1,28 +1,15 @@
-; --------------------------------------------
-; Title:   DATA
-; Author:  azertyfun
-; Date:    2/12/2012
-; Version: -
-; --------------------------------------------
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: DATA.dasm
+; Description : All the strings and RAM global variables.
+; *************************
 
 ;Devices
-:monitor       DAT 0
-:keyboard      DAT 0
-:clock         DAT 0
-:sped          DAT 0
-:floppy        DAT 0
-
-;kernel
-
-:started_programs        DAT 0, 0, 0, 0, 0 ;Array of pointers to the programs' PC
-:started_programs_SP     DAT 0, 0, 0, 0, 0 ;Array of pointers to the programs' SP
-:numberOfPrograms        DAT 0             ;Number of started programs
-:currentProgram          DAT 0
-:current_program_temp
-
-;kernel_strings
-:error_notEnoughFreeSpace      DAT "Error. The actual program tryed to allocate too much memory. The system will crash. Press any key to continue...", 0
-:error_tooMuchAllocs           DAT "Error. The actuel program tryed to allocate too much variables. The system will crash. press any key to continue...", 0
+:monitor       DAT 0x0
+:keyboard      DAT 0x0
+:clock         DAT 0x0
+:sped          DAT 0x0
+:floppy        DAT 0x0
 
 
 
@@ -30,7 +17,8 @@
 ; Default program(s) strings
 ; ==============================
 
-:accueil
+:home 
+
 DAT "  ###  ###   ###   #   #   ###  "
 DAT " #    #   # #      #   #      # "
 DAT "  ##  #   #  ##    #   #    ##  "
@@ -66,6 +54,8 @@ DAT "TIP : Enter to exit a program   ", 0
 :dp_readDisk_noLector_text DAT "ERROR : There isn't any floppy drive connected to the DCPU (PRIVATE_STATE_NO_FLOPPY_LECTOR)", 0
 :dp_readDisk_warning       DAT "WARNING ! This function wasn't tested with devkit because I have a bug, so the result if you put a writed disk would be completely random !", 0
 :dp_surprise_text          DAT "Wait a moment, it will come ! If nothing happens after 10 seconds, your emulator doesn't implements this function. Try with devkit ! ;)", 0
+:dp_readDisk_ok_text       DAT "Reading finished, here is: ", 0
+
 
 ;This model was took from http://0x10co.de/l3et7, a model by Sir_Tiffy
 

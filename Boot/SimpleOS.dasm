@@ -1,0 +1,24 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: SimpleOS.dasm
+; Description : Boot sequence, initializes the OS and launches the defaultProgram
+; *************************
+
+:SimpleOS
+	;Detecting and initalizing peripherals
+	JSR detectPeriphs
+	JSR initPeriphs
+	
+	;Initializing interrupts
+	JSR interrupts_init
+	
+	;Writing home screen
+	SET B, home
+	SET C, 0x8000
+	INT 0x1 ;WRITE
+	
+	INT 0x3 ;PRESSANYKEY
+	
+	JSR defaultProgram
+	
+	:end SET PC, end

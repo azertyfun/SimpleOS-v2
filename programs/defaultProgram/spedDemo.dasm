@@ -1,0 +1,33 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: spedDemo.dasm
+; Description: Demo of the SPED-3 driver.
+; *************************
+
+:dp_spedDemo
+	INT 0x02 ;CLEAR
+	
+	SET B, dp_spedDemo_text
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	SET X, model
+	SET Y, endModel
+	INT 0x7 ;Print model
+	
+	SET X, 270
+	INT 0x8 ;Rotate model
+	
+	:dp_spedDemo_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_spedDemo_loop
+		
+	;Clear the model
+	SET X, 0
+	SET Y, 0
+	INT 0x7 ;Print model
+	
+	SET Z, 1
+	
+	SET PC, POP

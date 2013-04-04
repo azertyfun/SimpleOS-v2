@@ -1,0 +1,17 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: surprise.dasm
+; Descrption: This is a surprise ! ;)
+; *************************
+
+:dp_surprise
+	INT 0x02 ;CLEAR
+	SET B, dp_surprise_text
+	SET C, 0x8000
+	INT 0x01 ;Write
+	
+	IAQ 1
+	
+	:dp_surprise_loop
+		INT 0x04
+		SET PC, dp_surprise_loop

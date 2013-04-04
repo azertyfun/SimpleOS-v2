@@ -1,0 +1,43 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: includes.dasm
+; Description : Main file who includes all the files from the project in the correct order.
+; *************************
+
+; ----------------------------------------------
+; Assembling boot sequence...
+; ----------------------------------------------
+#include ./SimpleOS.dasm
+
+; ----------------------------------------------
+; Assembling kernel...
+; ----------------------------------------------
+
+#include ../kernel/interrupts.dasm
+
+; ----------------------------------------------
+; Assembling drivers...
+; ----------------------------------------------
+#include ../drivers/floppy.dasm
+#include ../drivers/genericClock.dasm
+#include ../drivers/keyboard.dasm
+#include ../drivers/monitor.dasm
+#include ../drivers/sped.dasm
+#include ../drivers/detectPeriphs.dasm
+
+; ----------------------------------------------
+; Assembling data (strings, global RAM vars)...
+; ----------------------------------------------
+
+#include ../DATA/DATA.dasm
+
+; ----------------------------------------------
+; Assembling programs...
+; ----------------------------------------------
+
+#include ../programs/defaultProgram/defaultProgram.dasm
+#include ../programs/defaultProgram/readDisk.dasm
+#include ../programs/defaultProgram/game.dasm
+#include ../programs/defaultProgram/more.dasm
+#include ../programs/defaultProgram/spedDemo.dasm
+#include ../programs/defaultProgram/surprise.dasm

@@ -1,0 +1,102 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: readDisk.dasm
+; *************************
+
+:dp_readDisk
+	INT 0x2 ;Clear
+	
+	SET B, dp_readDisk_warning
+	SET C, 0x8000
+	INT 0x1 ;Write
+	INT 0x3 ;Press any key
+	
+	INT 0x2 ;Clear
+	
+	INT 0x5 ;Get state
+	IFE B, 0x0                       ;STATE_NO_MEDIA
+		SET PC, dp_readDisk_noMedia
+	IFE B, 0x1                       ;STATE_READY
+		SET PC, dp_readDisk_ok
+	IFE B, 0x2                       ;STATE_READY_WP
+		SET PC, dp_readDisk_ok
+	IFE B, 0x3                       ;STATE_BUSY
+		SET PC, dp_readDisk_busy
+	IFE B, 0x4
+		SET PC, dp_readDisk_noLector ;PRIVATE_STATE_NO_FLOPPY_LECTOR
+	
+	:dp_readDisk_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_readDisk_loop
+	
+	SET Z, 1
+	SET PC, POP
+		
+	:dp_readDisk_ok
+		SET A, 2
+		SET X, 0
+		SET Y, 0x8020
+		HWI [floppy]
+		
+		:dp_readDisk_ok_loop ;Waiting for the M35FD to finish reading.
+			SET A, 0
+			HWI [floppy]
+			IFE C, 0x0001 ;ERROR_BUSY
+				SET PC, dp_readDisk_ok_loop
+				
+		SET B, dp_readDisk_ok_text
+		SET C, 0x8000
+		INT 0x1 ;WRITE		
+		
+		SET I, 0x8020
+		:dp_readDisk_ok_loop2 ;Applying font
+			BOR [I], 0xF900
+			ADD I, 1
+			IFL I, 0x8180
+				SET PC, dp_readDisk_ok_loop2
+		
+		INT 0x3 ;PRESS_ANY_KEY
+			
+		SET Z, 1
+		SET PC, POP
+		
+:dp_readDisk_noMedia
+		SET B, dp_readDisk_noMedia_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		
+		:dp_readDisk_noMedia_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_noMedia_loop
+		
+		SET Z, 1
+		SET PC, POP
+	
+	:dp_readDisk_busy
+		SET B, dp_readDisk_busy_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		
+		:dp_readDisk_busy_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_busy_loop
+		
+		SET Z, 1
+		SET PC, POP
+		
+	:dp_readDisk_noLector
+		SET B, dp_readDisk_noLector_text
+		SET C, 0x8000
+		INT 0x1 ;Write
+		
+		
+		:dp_readDisk_noLector_loop
+		INT 0x04 ;Waitkey
+		IFN C, 0x11
+			SET PC, dp_readDisk_noLector_loop
+		
+		SET Z, 1
+		SET PC, POP

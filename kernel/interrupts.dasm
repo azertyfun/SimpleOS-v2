@@ -1,13 +1,11 @@
-; --------------------------------------------
-; Title:   interrupts
-; Author:  azertyfun
-; Date:    2/12/2012
-; Version: -
-; --------------------------------------------
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: interrupts.dasm
+; *************************
 
-; ===================================
+; -----------------------------------
 ; List of interrupts:
-; -------------------
+; ===================
 ; 
 ; - Write (0x1)
 ;   Set B to adress of string, C
@@ -46,13 +44,11 @@
 ; - Rotate model (0x8)
 ;   Set X to the number of degrees to
 ;     rotate.
-; ===================================
-
+; -----------------------------------
 
 :interrupts_init
 	IAS interrupts
 	SET PC, POP
-	
 	
 :interrupts
 	IFE A, 0x01      ;Write

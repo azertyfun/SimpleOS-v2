@@ -1,0 +1,49 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: game.dasm
+; Description: Small game where you can move a cube.
+; *************************
+
+:dp_game
+	INT 0x02 ;CLEAR
+	SET Y, [dp_game_playerAddress]
+	SET [Y], 0xF91b
+	:dp_game_loop
+		INT 0x4 ;WaitKey
+		IFE C, 0x77
+			JSR dp_game_arrowUp
+		IFE C, 0x73
+			JSR dp_game_arrowDown
+		IFE C, 0x61
+			JSR dp_game_arrowLeft
+		IFE C, 0x64
+			JSR dp_game_arrowRight
+		IFN C, 0x11
+			SET PC, dp_game_loop
+	SET Z, 1
+		
+	SET PC, POP
+	
+	:dp_game_arrowUp
+		SET [Y], 0x0920
+		SUB Y, 0x0020
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowDown
+		SET [Y], 0x0920
+		ADD Y, 0x0020
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowLeft
+		SET [Y], 0x0920
+		SUB Y, 0x0001
+		SET [Y], 0xF91b
+		SET PC, POP
+	
+	:dp_game_arrowRight
+		SET [Y], 0x0920
+		ADD Y, 0x0001
+		SET [Y], 0xF91b
+		SET PC, POP

@@ -1,0 +1,21 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: more.dasm
+; Description : Writes a text who explains things about SimpleOS.
+; *************************
+
+:dp_more
+	INT 0x02 ;CLEAR
+	
+	SET B, dp_more_text
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	:dp_more_loop
+	INT 0x04 ;Waitkey
+	IFN C, 0x11
+		SET PC, dp_more_loop
+	
+	SET Z, 1
+	
+	SET PC, POP

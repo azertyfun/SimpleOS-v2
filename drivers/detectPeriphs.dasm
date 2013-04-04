@@ -1,9 +1,8 @@
-; --------------------------------------------
-; Title:   detectPeriphs
-; Author:  azertyfun
-; Date:    2/12/2012
-; Version: -
-; --------------------------------------------
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: managePeriphs.dasm
+; Description : detects all the peripherals connected and initialize them.
+; *************************
 
 ;;;FONCTION detecPeriphs
 ;;;DESCRIPTION Detects all the peripherics connected, can be used to detect if there is new peripherics connected. /!\ The ID of removed peripherics will not change, be carefull !
@@ -28,4 +27,9 @@
 		IFN J, I
 			SET PC, detectPeriphs_loop
 		
+	SET PC, POP
+	
+:initPeriphs
+	JSR init_clock
+	JSR init_monitor
 	SET PC, POP

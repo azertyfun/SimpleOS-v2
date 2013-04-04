@@ -1,0 +1,33 @@
+; *************************
+; Project: SimpleOS v2 DevCPU compatible
+; File: defaultProgram.dasm
+; *************************
+
+
+
+
+:defaultProgram
+	;Don't need a clear because the text overwrites all ^_^
+	
+	SET B, dp_menu
+	SET C, 0x8000
+	INT 0x01 ;WRITE
+	
+	:defaultProgram_loop
+	INT 0x04 ;WaitKey
+	IFE C, 0x61
+		JSR dp_spedDemo
+	IFE C, 0x62
+		JSR dp_game
+	IFE C, 0x63
+		JSR dp_readDisk
+	IFE C, 0x64
+		JSR dp_more
+	IFE C, 0x65
+		JSR dp_surprise
+	IFN Z, 1
+		SET PC, defaultProgram_loop
+	SET PC, defaultProgram
+	
+	SET PC, POP
+	

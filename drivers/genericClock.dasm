@@ -1,0 +1,17 @@
+;;;FONCTION init_clock
+;;;DESCRIPTION inits the clock. Shouldn't be used because did on boot.
+
+:init_clock
+	;Not sure if must be put after turning ticking on..
+	SET A, 2
+	SET B, 0xF0F0
+	HWI [clock]
+
+	SET A, 0
+	;SET B, 30
+	;Desactivating temporarily
+	SET B, 0
+	HWI [clock]
+	
+	SET PC, POP
+	
