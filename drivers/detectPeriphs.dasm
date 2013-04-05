@@ -10,7 +10,7 @@
 
 :detectPeriphs
 	HWN I
-	SET J, -1
+	SET J, 0
 	:detectPeriphs_loop
 		HWQ J
 		IFE A, 0xf615
